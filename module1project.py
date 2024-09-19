@@ -10,27 +10,53 @@ def main():
     UserInput = UserInputFunc()
 
     # While loop to keep running the menu
-    while UserInput != 4:
+    while UserInput != 5:
         # This is the first option
         if UserInput == 1: 
             # We will get the sequence 1
             sequence1 = sequence_one()
-        #This is the second option
+            # print squence 1
+            print("Sequence 1: ", sequence1)
+
+        # This is the second option
         if UserInput == 2:
             # We will get the sequence 2
             sequence2 = sequence_two()
+            # print sequence 2
+            print("Sequence 2: ", sequence2)
+
+        # We are going to compare the sequences before any shifts
+        # But this can be a function if need be
+        if UserInput == 3:
+            # This is the list that we will use to print
+            compare = []
+            # This is the count that will keep count of the number of matches
+            count = 0
+            # This is the for loop that will do the comparsion for seqence 1
+            for i in range(0, len(sequence1)):
+                # This is the for loop for seqence 2
+                for j in range(0, len(sequence2)):
+                    # If statement if the indexes matches
+                    if sequence1[i] == sequence2[j]:
+                        # append the matches
+                        compare.append(sequence1[i])
+                        # increment the count
+                        count += 1
+            # This if for not having any matches
+            if compare == []:
+                print("There are no matches,", count)
+            # This is for having matches
+            else:
+                # Printing how many matches 
+                print(compare)
+                print("This is how many DNAs are the same:", count)
+
+        # This option is for shifting the sequence but not yet comparing 
 
         # Get the new Input
         UserInput = UserInputFunc()
 
-    # print both squences
-    print(sequence1)
-    print(sequence2)
 
-    # We are going to compare the sequences before any shifts
-
-
-    # Then we make an menu
 
 def introduction():
     print("-------------------------")
@@ -57,8 +83,9 @@ def UserInputFunc():
     print()
     print("1. Input sequence 1")
     print("2. Input sequence 2")
-    print("3. Shift either sequence")
-    print("4. Quit")
+    print("3. Compare the sequence")
+    print("4. Shift the sequence")
+    print("5. Quit")
     print()
     UserInput = int(input("Option Selected: "))
     print()
