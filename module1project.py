@@ -9,9 +9,18 @@ def main():
 
     # Input a menu to chose from which we will use a for
     UserInput = UserInputFunc()
+    sequence1 = ""
+    sequence2 = ""
 
     # While loop to keep running the menu
     while UserInput != 5:
+        # print the following sequences
+        if UserInput == 0:
+            if sequence1 == "" or sequence2 == "":
+                print("ERROR, please input sequences first")
+            else:
+                print(sequence1)
+                print(sequence2)
         # This is the first option
         if UserInput == 1: 
             # We will get the sequence 1
@@ -29,30 +38,57 @@ def main():
         # We are going to compare the sequences before any shifts
         # But this can be a function if need be
         if UserInput == 3:
-            # This is the list that we will use to print
-            compare = []
-            # This is the count that will keep count of the number of matches
-            count = 0
-            # This is the for loop that will do the comparsion for seqence 1
-            for i in range(0, len(sequence1)):
-                # This is the for loop for seqence 2
-                for j in range(0, len(sequence2)):
-                    # If statement if the indexes matches
-                    if sequence1[i] == sequence2[j]:
-                        # append the matches
-                        compare.append(sequence1[i])
-                        # increment the count
-                        count += 1
-            # This if for not having any matches
-            if compare == []:
-                print("There are no matches,", count)
-            # This is for having matches
+            if sequence1 == "":
+                print("Please insert Sequence 1")
+            elif sequence2 == "":
+                print("Please insert Sequence 2")
             else:
-                # Printing how many matches 
-                print(compare)
-                print("This is how many DNAs are the same:", count)
+                compareFunc(sequence1, sequence2)
 
-        # This option is for shifting the sequence but not yet comparing 
+        # This option is for shifting the sequence but not yet comparing
+        if UserInput == 4:
+            # First we get the direction we want to shift the sequence
+            print("To shift a sequence please indicate Left or Right with L or R.")
+            direction = input("Left(L) or Right(R): ")
+            print()
+            # The User will indicate which sequence will be shifted
+            print("Now please choose which sequence that you want to shift, either 1 or 2")
+            ShiftSequence = int(input("Sequence (1) or Sequence (2): "))
+            print(ShiftSequence)
+            print()
+            # Then we get the number of shifts to do
+            print("Please Indicate how many times do you want to shift the sequence by?")
+            NumShift = int(input("Shift by this much: "))
+            # This is the space that needed to be added to the seqences
+            ShiftSpaces = NumShift * "*"
+            # If the Left direction is chosen
+            if direction.upper() == "L":
+                if ShiftSequence == 1:
+                   sequence1 = ShiftSpaces + sequence1
+                   sequence2 = sequence2 + ShiftSpaces
+                elif ShiftSequence == 2:
+                    sequence2 = ShiftSpaces + sequence2
+                    sequence1 = sequence1 + ShiftSpaces
+                else:
+                    print("ERROR")
+                    break
+                # Now we comapre the shift sequences 
+                compareFunc(sequence1, sequence2)
+            elif direction.upper() == "R":
+                if ShiftSequence == 1:
+                   sequence1 = sequence1 + ShiftSpaces
+                   sequence2 = ShiftSpaces + sequence2
+                elif ShiftSequence == 2:
+                    sequence2 = sequence2 + ShiftSpaces
+                    sequence1 = ShiftSpaces + sequence1
+                else:
+                    print("ERROR")
+                    break
+                # Now we comapre the shift sequences 
+                compareFunc(sequence1, sequence2)
+            else:
+                print("ERROR")
+                break 
 
         # Get the new Input
         UserInput = UserInputFunc()
@@ -82,6 +118,7 @@ def sequence_two():
 
 def UserInputFunc():
     print()
+    print("0. Print current sequences")
     print("1. Input sequence 1")
     print("2. Input sequence 2")
     print("3. Compare the sequence")
@@ -92,6 +129,28 @@ def UserInputFunc():
     print()
 
     return UserInput
+
+def compareFunc(sequence1, sequence2):
+    # This is the list that we will use to print
+    compare = []
+    # This is the count that will keep count of the number of matches
+    count = 0
+    # This is the for loop that will do the comparsion for seqence 1
+    for i in range(len(sequence1)):
+            # If statement if the indexes matches
+            if sequence1[i] == sequence2[i]:
+                # append the matches
+                compare.append(sequence1[i])
+                # increment the count
+                count += 1
+    # This if for not having any matches
+    if compare == []:
+        print("There are no matches,", count)
+    # This is for having matches
+    else:
+        # Printing how many matches 
+        print(compare)
+        print("This is how many DNAs are the same:", count)
 
 # run the main function
 main()
