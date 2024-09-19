@@ -1,6 +1,6 @@
 # Project: Module 1 (DNA Similarity)
-# Name: Monique Parrish
-# This should be in moniques branch
+# Name: Monique Parrish and Hien
+# This should be in main branch
 
 # This is the main function and we are going to use this as the main menu
 def main():
